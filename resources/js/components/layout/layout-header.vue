@@ -2,7 +2,14 @@
   <v-app-bar app clipped-left>
     <v-app-bar-nav-icon @click.stop="toggleDrawer()" />
 
-      <v-toolbar-title>App</v-toolbar-title>
+    <v-toolbar-title style="cursor: pointer">
+      <router-link v-slot="{ navigate }" :to="{ name: 'site-dashboard' }" custom>
+        <span role="link" @click="navigate" @keypress.enter="navigate">
+          SKKP
+        </span>
+      </router-link>
+
+    </v-toolbar-title>
 
     <v-spacer />
     <v-btn to="/settings" icon>
@@ -16,25 +23,24 @@
 
 <script>
 export default {
-  name: 'LayoutHeader',
+  name: "LayoutHeader",
   props: {
-    drawer: Boolean
+    drawer: Boolean,
   },
   methods: {
     toggleDrawer() {
-
-      this.$emit('toggleDrawer');
+      this.$emit("toggleDrawer");
+    },
+    navigate() {
+      this.$emit("toggleDrawer");
     },
     logout() {
-
-      this.$store.dispatch('auth/toggleLoggingOut', true);
-      this.$store.dispatch('auth/logout')
-        .catch(err => console.log(err));
-    }
-  }
+      this.$store.dispatch("auth/toggleLoggingOut", true);
+      this.$store.dispatch("auth/logout").catch((err) => console.log(err));
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 </style>
